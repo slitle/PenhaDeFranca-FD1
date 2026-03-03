@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisboa – Penha de França</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #f5f5f5;
+        }
+
+        header {
+            height: 100vh;
+            background: url('imagens/capa.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        header h1 {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px 40px;
+            font-size: 3rem;
+        }
+
+        section {
+            padding: 60px 10%;
+        }
+
+        h2 {
+            border-bottom: 2px solid #f5f5f5;
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #000;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Lisboa – Penha de França</h1>
+</header>
+
+<section>
+    <h2>Miradouros</h2>
+    <div class="gallery">
+        <div>
+            <img src="imagens/penha1.jpg" alt="Miradouro Penha de França">
+            <div class="caption">Miradouro Penha de França – Golden Hour</div>
+        </div>
+        <div>
+            <img src="imagens/monteagudo1.jpg" alt="Monte Agudo">
+            <div class="caption">Monte Agudo – Fim de tarde</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Detalhes Urbanos</h2>
+    <div class="gallery">
+        <div>
+            <img src="imagens/detalhe1.jpg" alt="Escadarias">
+            <div class="caption">Escadarias – Textura e luz</div>
+        </div>
+        <div>
+            <img src="imagens/grafitti1.jpg" alt="Arte urbana">
+            <div class="caption">Arte urbana – Contraste cromático</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Sobre o Projeto</h2>
+    <p>
+        Este projeto explora a luz, textura e perspectiva no bairro da Penha de França,
+        captando diferentes momentos do dia e a relação entre arquitetura e paisagem urbana.
+    </p>
+</section>
+
+<footer>
+    © 2026 – Pedro Cravid
+</footer>
+
+</body>
+</html>
