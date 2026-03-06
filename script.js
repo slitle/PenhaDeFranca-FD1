@@ -65,29 +65,60 @@ const viewerToggle = document.getElementById('viewerToggle');
 
 let showingBefore = false;
 
-function openViewer(zone, fname) {
+async function openViewer(zone, fname) {
 	const afterSrc = `imagens/${zone}/${fname}`;
-	const beforeSrc = `imagens-raw/${zone}/${fname}`;
+	const rawBase = `imagens-raw/${zone}/`;
 
 	showingBefore = false;
 	viewerAfter.src = afterSrc;
 	viewerAfter.alt = `Depois — ${fname}`;
 
-	// prepare before image, hide until toggle
+	// prepare before image: try exact name, then try extension uppercase fallback
 	viewerBefore.classList.add('hidden');
 	viewerBefore.alt = `Antes — ${fname}`;
-	viewerBefore.src = beforeSrc;
 
-	// enable toggle (it may be disabled later if before image 404s)
-	viewerToggle.disabled = false;
-	viewerToggle.setAttribute('aria-pressed', 'false');
-	viewerToggle.textContent = 'Ver Antes';
+	const tryUrl = async (url) => {
+		try {
+			const res = await fetch(url, { method: 'HEAD' });
+			return res.ok;
+		} catch (e) {
+			return false;
+		}
+	};
 
-	// if before image fails to load, hide toggle
-	viewerBefore.onerror = () => {
+	const beforeUrl = rawBase + fname;
+	let found = await tryUrl(beforeUrl);
+	let chosen = beforeUrl;
+
+	if (!found) {
+		// try uppercase extension (common cause of 404 on case-sensitive hosts)
+		const alt = fname.replace(/(\.[^.]+)$/, (m) => m.toUpperCase());
+		const altUrl = rawBase + alt;
+		if (alt !== fname) {
+			const ok = await tryUrl(altUrl);
+			if (ok) {
+				found = true;
+				chosen = altUrl;
+			}
+		}
+	}
+
+	if (found) {
+		viewerBefore.src = chosen;
+		viewerToggle.disabled = false;
+		viewerToggle.setAttribute('aria-pressed', 'false');
+		viewerToggle.textContent = 'Ver Antes';
+		viewerBefore.onerror = () => {
+			console.warn('Antes image failed to load after HEAD ok:', chosen);
+			viewerToggle.disabled = true;
+			viewerToggle.textContent = 'Antes indisponível';
+		};
+	} else {
+		console.warn('Antes image not found (tried):', beforeUrl);
 		viewerToggle.disabled = true;
 		viewerToggle.textContent = 'Antes indisponível';
-	};
+		viewerBefore.src = '';
+	}
 
 	// show viewer
 	viewer.classList.remove('hidden');
