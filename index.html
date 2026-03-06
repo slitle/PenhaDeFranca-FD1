@@ -61,6 +61,21 @@
 		© 2026 – slitle
 	</footer>
 
+
+	<!-- Fullscreen image viewer (antes/depois) -->
+	<div id="viewer" class="modal hidden" aria-hidden="true">
+		<div class="viewer-overlay" id="viewerOverlay">
+			<div class="viewer-content" role="dialog" aria-modal="true">
+				<button id="viewerClose" class="viewer-close" aria-label="Fechar">×</button>
+				<button id="viewerToggle" class="viewer-toggle" aria-pressed="false">Ver Antes</button>
+				<div class="viewer-image-wrap">
+					<img id="viewerAfter" class="viewer-img after" alt="Depois">
+					<img id="viewerBefore" class="viewer-img before hidden" alt="Antes">
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="script.js"></script>
 </body>
 
